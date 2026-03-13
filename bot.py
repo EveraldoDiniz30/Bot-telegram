@@ -5,21 +5,27 @@ from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 TOKEN = "8681180706:AAFsLuGC7uEgazESRF0BMzCVGXZt4boQVss"
-CHAT_ID = "@siinaismilionarios"
+
+CHAT_IDS = [
+    "@siinaismilionarios",
+    "@oometodosilvercop"
+]
 
 LINK = "https://bit.ly/47BFiyX"
 
 def enviar(msg):
+
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
 
-    requests.post(
-        url,
-        data={
-            "chat_id": CHAT_ID,
-            "text": msg,
-            "disable_web_page_preview": True
-        }
-    )
+    for chat in CHAT_IDS:
+        requests.post(
+            url,
+            data={
+                "chat_id": chat,
+                "text": msg,
+                "disable_web_page_preview": True
+            }
+        )
 
 jogos = [
     "🐯 Fortune Tiger",
@@ -28,7 +34,6 @@ jogos = [
     "🎰 Slot Premium"
 ]
 
-# pesos de probabilidade
 confiancas = [
     ("🔥", "fraco"),
     ("🔥🔥", "mediano"),
@@ -36,14 +41,13 @@ confiancas = [
     ("🔥🔥🔥🔥🔥", "muito forte")
 ]
 
-pesos_confianca = [1, 4, 4, 2]  
-# fraco raro, mediano e forte mais comuns, muito forte moderadamente raro
+pesos_confianca = [1,4,4,2]
 
-simbolos = ["▶️", "⚡"]
+simbolos = ["▶️","⚡"]
 
 while True:
 
-    espera = random.randint(480,1200)
+    espera = random.randint(480,1200)  # 8 a 20 minutos
     print("Próximo sinal em:", espera)
 
     time.sleep(espera)
@@ -55,7 +59,6 @@ while True:
     agora = datetime.now(fuso)
     validade = (agora + timedelta(minutes=5)).strftime("%H:%M")
 
-    # mensagem 1
     enviar(f"""
 🚨 SINAL DETECTADO
 
@@ -74,7 +77,6 @@ Prepare-se 👀
 
     sequencia = "".join(random.choice(simbolos) for _ in range(12))
 
-    # mensagem 2
     enviar(f"""
 NOVA ENTRADA ✅
 
