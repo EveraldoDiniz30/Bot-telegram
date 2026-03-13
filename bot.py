@@ -1,7 +1,7 @@
 import requests
 import time
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 TOKEN = "8681180706:AAFsLuGC7uEgazESRF0BMzCVGXZt4boQVss"
@@ -28,6 +28,7 @@ jogos = [
     "🎰 Slot Premium"
 ]
 
+# pesos de probabilidade
 confiancas = [
     ("🔥", "fraco"),
     ("🔥🔥", "mediano"),
@@ -35,11 +36,13 @@ confiancas = [
     ("🔥🔥🔥🔥🔥", "muito forte")
 ]
 
+pesos_confianca = [1, 4, 4, 2]  
+# fraco raro, mediano e forte mais comuns, muito forte moderadamente raro
+
 simbolos = ["▶️", "⚡"]
 
 while True:
 
-    # espera entre sinais (8–20 minutos)
     espera = random.randint(480,1200)
     print("Próximo sinal em:", espera)
 
@@ -47,9 +50,10 @@ while True:
 
     jogo = random.choice(jogos)
 
-    hora = datetime.now(
-        ZoneInfo("America/Sao_Paulo")
-    ).strftime("%H:%M")
+    fuso = ZoneInfo("America/Sao_Paulo")
+
+    agora = datetime.now(fuso)
+    validade = (agora + timedelta(minutes=5)).strftime("%H:%M")
 
     # mensagem 1
     enviar(f"""
@@ -66,7 +70,7 @@ Prepare-se 👀
     jogadas_normal = random.randint(1,20)
     jogadas_turbo = random.randint(1,20)
 
-    confianca = random.choice(confiancas)
+    confianca = random.choices(confiancas, weights=pesos_confianca)[0]
 
     sequencia = "".join(random.choice(simbolos) for _ in range(12))
 
@@ -80,7 +84,7 @@ NOVA ENTRADA ✅
 ⚡ Jogadas turbo: {jogadas_turbo}
 
 💪🏽 Confiança: {confianca[0]} ({confianca[1]})
-⏰ Válido até: {hora}
+⏰ Válido até: {validade}
 
 🎰 Sequência: {sequencia}
 
@@ -90,7 +94,6 @@ SÓ FUNCIONA AQUI 👇
 
     time.sleep(random.randint(60,90))
 
-    # resultado (90% win)
     if random.random() < 0.9:
 
         enviar(f"""
@@ -111,4 +114,3 @@ Mais um lucro garantido 🔥
 Mercado variou dessa vez.
 Seguimos para o próximo sinal.
 """)
-
