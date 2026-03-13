@@ -6,7 +6,6 @@ from zoneinfo import ZoneInfo
 
 TOKEN = "8681180706:AAFsLuGC7uEgazESRF0BMzCVGXZt4boQVss"
 CHAT_ID = "@siinaismilionarios"
-
 LINK = "https://bit.ly/47BFiyX"
 
 def enviar(msg):
@@ -27,90 +26,75 @@ confiancas = [
     ("🔥🔥🔥🔥🔥", "muito forte")
 ]
 
-sequencia_simbolos = ["▶️", "⚡"]
+simbolos = ["▶️","⚡"]
 
 while True:
 
+    # intervalo entre sinais
+    espera = random.randint(480,1200)  # 8 a 20 minutos
+    print("Próximo sinal em:", espera)
+
+    time.sleep(espera)
+
     jogo = random.choice(jogos)
 
-    fuso = ZoneInfo("America/Sao_Paulo")
-    hora = datetime.now(fuso).strftime("%H:%M")
+    hora = datetime.now(
+        ZoneInfo("America/Sao_Paulo")
+    ).strftime("%H:%M")
 
-    # mensagem 1
-    msg1 = f"""
+    enviar(f"""
 🚨 SINAL DETECTADO
 
 🎮 Jogo: {jogo}
 
-Analisando padrão de entrada...
-Prepare-se 👀
-"""
-
-    enviar(msg1)
+Preparando entrada...
+""")
 
     time.sleep(random.randint(10,20))
 
-    jogadas_normal = random.randint(1,20)
-    jogadas_turbo = random.randint(1,20)
+    normal = random.randint(1,20)
+    turbo = random.randint(1,20)
 
     confianca = random.choice(confiancas)
 
-    sequencia = "".join(random.choice(sequencia_simbolos) for _ in range(12))
+    sequencia = "".join(random.choice(simbolos) for _ in range(12))
 
-    # mensagem 2
-    msg2 = f"""
+    enviar(f"""
 NOVA ENTRADA ✅
 
 {jogo}
 
-▶️ Jogadas normal: {jogadas_normal}
-⚡ Jogadas turbo: {jogadas_turbo}
+▶️ Jogadas normal: {normal}
+⚡ Jogadas turbo: {turbo}
 
 💪🏽 Confiança: {confianca[0]} ({confianca[1]})
 ⏰ Válido até: {hora}
 
 🎰 Sequência: {sequencia}
 
-SÓ FUNCIONA AQUI 👇🏻👇🏻👇🏻
+SÓ FUNCIONA AQUI 👇
 {LINK}
-"""
-
-    enviar(msg2)
+""")
 
     time.sleep(random.randint(60,90))
 
-    # 90% win
-    resultado = "WIN" if random.random() < 0.9 else "LOSS"
-
-    if resultado == "WIN":
-        msg3 = f"""
+    if random.random() < 0.9:
+        enviar(f"""
 ✅ GREEN CONFIRMADO
 
 {jogo}
 
-Lucro garantido novamente 🔥
+Mais um lucro garantido.
 
-Aposte aqui 👇🏻
+Aposte aqui 👇
 {LINK}
-"""
+""")
     else:
-        msg3 = f"""
+        enviar(f"""
 ❌ LOSS
 
 {jogo}
 
 Mercado variou dessa vez.
-
-Recupere no próximo sinal 👇🏻
-{LINK}
-"""
-
-    enviar(msg3)
-
-    # intervalo 8–25 minutos
-    tempo = random.randint(480,1500)
-
-    print("Próximo sinal em:", tempo)
-
-    time.sleep(tempo)
-
+Seguimos para o próximo sinal.
+""")
