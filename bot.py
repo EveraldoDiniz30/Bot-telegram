@@ -45,12 +45,18 @@ pesos_confianca = [1,4,4,2]
 
 simbolos = ["▶️","⚡"]
 
+primeiro_ciclo = True
+
 while True:
 
-    espera = random.randint(480,1200)  # 8 a 20 minutos
-    print("Próximo sinal em:", espera)
+    if not primeiro_ciclo:
 
-    time.sleep(espera)
+        espera = random.randint(480,1200)  # 8–20 minutos
+        print("Próximo sinal em:", espera)
+
+        time.sleep(espera)
+
+    primeiro_ciclo = False
 
     jogo = random.choice(jogos)
 
@@ -94,9 +100,11 @@ SÓ FUNCIONA AQUI 👇
 {LINK}
 """)
 
-    time.sleep(random.randint(60,90))
+    # espera ~3 minutos para resultado
+    time.sleep(random.randint(170,200))
 
-    if random.random() < 0.9:
+    # 80% win / 20% loss
+    if random.random() < 0.8:
 
         enviar(f"""
 ✅ GREEN CONFIRMADO
