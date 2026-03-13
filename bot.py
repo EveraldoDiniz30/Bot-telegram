@@ -4,7 +4,7 @@ import random
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-TOKEN = "SEU_TOKEN"
+TOKEN = "8681180706:AAFsLuGC7uEgazESRF0BMzCVGXZt4boQVss"
 CHAT_ID = "@siinaismilionarios"
 
 LINK = "https://bit.ly/47BFiyX"
@@ -111,3 +111,4 @@ Mais um lucro garantido 🔥
 Mercado variou dessa vez.
 Seguimos para o próximo sinal.
 """)
+
